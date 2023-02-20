@@ -2,21 +2,31 @@ Title: Math Painting
 Description: An app that lets the user provide the start coordinates of geometrical shapes such as
 squares and rectangles, their dimensions, and their colors, and the program produces an image file canvas with all
 the geometrical shapes drawn in it.
+
 Objects: Square:
-            x
-            y
-            side
-            color
+            x: int
+            y: int
+            side: int
+            color: str
             draw(canvas)
          Rectangle:
-            x
-            y
-            width
-            height
-            color
+            x: int
+            y: int
+            width: int
+            height: int
+            color: str
             draw(canvas)
          Canvas:
-            width
-            height
-            color
+            width: int
+            height: int
+            color: str
             make(imagepath)
+=================
+
+My addition:
+
+Color:
+    COLOR_TABLE (class attr)
+    chosen_color: str
+    get_color_codes(color_name: str) -> list[uint8]
+    list_color_table()

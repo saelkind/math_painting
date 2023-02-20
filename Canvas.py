@@ -1,16 +1,13 @@
-"""
-        Canvas:
-            width
-            height
-            color
-            make(imagepath)
-"""
+import numpy as np
+from PIL import Image
+from Color import Color
+
 class Canvas:
     """
     Canvas hosting the shapes to be drawn,  and to save as an image
 
     class attribute:
-        COLOR_DICT - dict of color settings,  keys are some of the basic CSS color names
+        SUPPORTED_FORMATS - supported list of picture formats as file extensions
     instance attributes:
         width
         height
@@ -18,22 +15,31 @@ class Canvas:
     methods:
         make(imagepath,  format="png")
     """
-    
-    COLOR_DICT = {
-        "black": [0, 0, 0], 
-        "silver": [192, 192, 192], 
-        "gray": [255,  255, 255], 
-        "red": [255,  0,  0], 
-        "purple": [128,  0,  128], 
-        "green": [0,  128,  0], 
-        "lime": [0,  255,  0],  
-        "yellow": [255,  255,  0],  
-        "blue": [0,  0,  255],  
-        "teal": [0,  128,  128],  
-        "aqua": [0,  255,  255]
-    }
 
-    def __init__(self,  width=800,  height=600,  color="white"):
+    SUPPORTED_FORMATS = ["png", "gif", "jpg"]
+    
+    def __init__(self,  width=800,  height=600,  colorname="white"):
         self.width = width
         self.height = height
-        self.color = color
+        self.colorname = colorname
+        self.canvas = np.zeros((height, width, 3), dtype=np.uint8)
+        # print(type(Color.get_color_codes(colorname)))
+        self.canvas[:] = Color.get_color_codes(colorname)
+
+    def make(self, imagepath:str, imgformat:str = "png") -> str:
+        if imgformat in Canvas.SUPPORTED_FORMATS:
+            filename = imagepath + "." + imgformat
+            # TODO check for ability to write the file
+            image = Image.fromarray(self.canvas, 'RGB')
+            image.save(imagepath + "." + imgformat)
+            return "Success"
+        else:
+            return f"Invalid format '{imgformat}', formats allowed are:  {Canvas.SUPPORTED_FORMATS}"  \
+
+
+#
+# canvas = Canvas()
+# canvas.make("C:\\Temp\\canv_white", "png")
+#
+# canvas = Canvas(1920, 780, "lime")
+# canvas.make("C:\\Temp\\canv_lime", "png")
