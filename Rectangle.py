@@ -3,6 +3,15 @@ from Color import Color
 
 
 class Rectangle:
+    """
+    Rectangle to be drawn on canvas.  All drawings integers only
+    Instance variables:
+        x: upper left x coord
+        y: upper left y coord
+        width: width
+        height: height
+        colorname: CSS name of the color, from a limited palette
+    """
 
     def __init__(self, x: int, y: int, width: int, height: int, colorname: str):
         """Does not check for correctness of color string"""
@@ -16,11 +25,7 @@ class Rectangle:
         # TODO add error checking of args?  Or trust them?
         # TODO check if boundaries outside canvas, and adjust so partial rect drawn
         #   (note: if any of rect off-canvas, nothing drewn (silently?)
-        left_x:int = self.x - self.width//2
-        right_x: int = left_x + self.width
-        hi_y = self.y - self.height//2
-        lo_y = hi_y + self.height
-        canvas.canvas[hi_y:lo_y, left_x:right_x] = \
+        canvas.canvas[self.y : self.y+self.height, self.x : self.x+self.width] = \
                         Color.get_color_codes(self.colorname)
 
 

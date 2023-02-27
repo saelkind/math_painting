@@ -30,3 +30,8 @@ Color:
     chosen_color: str
     get_color_codes(color_name: str) -> list[uint8]
     list_color_table()
+
+Coordinates:
+He explained that canvass upper left is (0,0).  However, for some reason I did
+not get that x & y coords of shape are not center of shape, but upper left
+corner.  had to do minor refactor
